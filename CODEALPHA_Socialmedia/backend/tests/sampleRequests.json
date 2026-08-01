@@ -1,0 +1,26 @@
+{
+  "info": {
+    "name": "SocialConnect API Collection",
+    "description": "Production-ready Postman / REST API sample requests for SocialConnect Backend"
+  },
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Ava Thompson\",\n  \"username\": \"ava.codes\",\n  \"email\": \"ava@example.com\",\n  \"password\": \"Password123!\"\n}" },
+        "url": "http://localhost:5000/api/auth/register"
+      }
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"ava@example.com\",\n  \"password\": \"Password123!\"\n}" },
+        "url": "http://localhost:5000/api/auth/login"
+      }
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+/* ==========================================================================
+   PRODUCTS.CSS — Listing page (grid, filters, sorting, pagination)
+   ========================================================================== */
+
+.listing-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--space-6);
+  align-items: start;
+  padding-block: var(--space-6);
+}
+
+/* -------------------------- Sidebar filters -------------------------------- */
+.filter-sidebar {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  position: sticky;
+  top: calc(var(--header-height) + 16px);
+}
+.filter-sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+.filter-sidebar-head h3 { font-size: 1.05rem; }
+.filter-clear { font-size: 0.8rem; font-weight: 700; color: var(--color-primary); }
+
+.filter-group { border-top: 1px solid var(--color-border); padding-block: var(--space-4); }
+.filter-group:first-of-type { border-top: none; padding-top: 0; }
+.filter-group-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  padding: 6px 0;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+.filter-option input { accent-color: var(--color-primary); width: 16px; height: 16px; }
+.filter-option .fo-count { margin-left: auto; color: var(--color-text-faint); font-size: 0.78rem; }
+.filter-option:hover { color: var(--color-text); }
+
+.price-range-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+.price-range-display span { color: var(--color-primary); }
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+
+.rating-filter { display: flex; flex-direction: column; gap: 4px; }
+.rating-filter .stars-inline { color: var(--color-accent); }
+
+/* -------------------------- Toolbar -------------------------------- */
+.listing-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.results-count { color: var(--color-text-muted); font-size: 0.9rem; }
+.results-count strong { color: var(--color-text); }
+
+.toolbar-controls { display: flex; align-items: center; gap: 10px; }
+.sort-select {
+  padding: 10px 36px 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #fff;
+}
+
+.filter-toggle-btn { display: none; }
+
+.active-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--space-5); }
+.active-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-primary-softer);
+  color: var(--color-primary-dark);
+  padding: 6px 10px 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.active-filter-chip button { font-size: 0.9rem; line-height: 1; }
+
+/* -------------------------- Pagination -------------------------------- */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: var(--space-7);
+}
+.pagination button {
+  min-width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.pagination button:hover:not(:disabled) { background: var(--color-bg-alt); }
+.pagination button.active { background: var(--color-primary); color: #fff; }
+.pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* -------------------------- Drawer close for mobile filters -------------------------------- */
+.filter-drawer-close { display: none; margin-bottom: var(--space-4); }
+
+@media (max-width: 768px) {
+  .filter-toggle-btn { display: inline-flex; }
+  .filter-drawer-close { display: flex; margin-left: auto; }
+}

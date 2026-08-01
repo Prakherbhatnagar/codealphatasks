@@ -1,0 +1,10 @@
+{
+  "name": "shophive-ecommerce",
+  "version": "1.0.0",
+  "description": "ShopHive E-Commerce Web Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "npx -y serve ."
+  }
+}

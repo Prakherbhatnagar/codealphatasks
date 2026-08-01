@@ -1,0 +1,32 @@
+# ==========================================
+# ShopHive E-Commerce .gitignore
+# Prevents sensitive files & heavy packages from leaking
+# ==========================================
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment Variables & Secrets (CRITICAL)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.env
+
+# Uploaded Files & Temporary Assets
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# System & Editor Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — ShopHive</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="page-loader" aria-hidden="true"><div class="spinner"></div></div>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html" class="logo"><span class="logo-mark">S</span>Shop<span class="accent">Hive</span></a>
+      <div class="nav-links" style="margin-left:auto;">
+        <span style="color:var(--color-text-muted);font-size:0.88rem;">🔒 Secure Checkout</span>
+      </div>
+      <div class="navbar-actions">
+        <a href="cart.html" class="icon-btn" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span class="count-pill" data-cart-count>0</span></a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container" style="padding-top:var(--space-6);">
+    <div class="checkout-steps">
+      <div class="step"><span class="num">✓</span> Cart</div>
+      <div class="sep"></div>
+      <div class="step active"><span class="num">2</span> Checkout</div>
+      <div class="sep"></div>
+      <div class="step"><span class="num">3</span> Confirmation</div>
+    </div>
+
+    <div id="checkoutEmptyState" class="empty-state" style="display:none;">
+      <div class="emoji">🛒</div>
+      <h3>Your cart is empty</h3>
+      <p>Add a few items before heading to checkout.</p>
+      <a href="products.html" class="btn btn-primary">Browse Products</a>
+    </div>
+
+    <form id="checkoutForm" novalidate>
+      <div class="checkout-grid" id="checkoutGrid">
+        <div class="checkout-main">
+
+          <!-- ===================== SHIPPING ADDRESS ===================== -->
+          <section class="panel checkout-section">
+            <h2 class="panel-title">📦 Shipping Address</h2>
+            <div class="form-grid-2">
+              <div class="form-group" id="shipFirstNameGroup">
+                <label for="shipFirstName">First name <span class="required">*</span></label>
+                <input type="text" id="shipFirstName" class="form-control" required>
+                <span class="field-error">⚠ Required field</span>
+              </div>
+              <div class="form-group" id="shipLastNameGroup">
+                <label for="shipLastName">Last name <span class="required">*</span></label>
+                <input type="text" id="shipLastName" class="form-control" required>
+                <span class="field-error">⚠ Required field</span>
+              </div>
+            </div>
+            <div class="form-group" id="shipAddressGroup">
+              <label for="shipAddress">Street address <span class="required">*</span></label>
+              <input type="text" id="shipAddress" class="form-control" placeholder="123 Market Street" required>
+              <span class="field-error">⚠ Required field</span>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group" id="shipCityGroup">
+                <label for="shipCity">City <span class="required">*</span></label>
+                <input type="text" id="shipCity" class="form-control" required>
+                <span class="field-error">⚠ Required field</span>
+              </div>
+              <div class="form-group" id="shipZipGroup">
+                <label for="shipZip">ZIP / Postal code <span class="required">*</span></label>
+                <input type="text" id="shipZip" class="form-control" required>
+                <span class="field-error">⚠ Enter a valid ZIP code</span>
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group" id="shipCountryGroup">
+                <label for="shipCountry">Country <span class="required">*</span></label>
+                <div class="select-wrap">
+                  <select id="shipCountry" class="form-control" required>
+                    <option value="">Select country</option>
+                    <option>India</option><option>United States</option><option>United Kingdom</option><option>Canada</option><option>Australia</option>
+                  </select>
+                </div>
+                <span class="field-error">⚠ Please select a country</span>
+              </div>
+              <div class="form-group" id="shipPhoneGroup">
+                <label for="shipPhone">Phone number <span class="required">*</span></label>
+                <input type="tel" id="shipPhone" class="form-control" placeholder="+91 98765 43210" required>
+                <span class="field-error">⚠ Enter a valid phone number</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- ===================== BILLING ADDRESS ===================== -->
+          <section class="panel checkout-section">
+            <h2 class="panel-title">🧾 Billing Address</h2>
+            <label class="address-toggle">
+              <input type="checkbox" id="sameAsShipping" checked>
+              <span>Same as shipping address</span>
+            </label>
+            <div id="billingFields" style="display:none;">
+              <div class="form-grid-2">
+                <div class="form-group" id="billFirstNameGroup">
+                  <label for="billFirstName">First name <span class="required">*</span></label>
+                  <input type="text" id="billFirstName" class="form-control">
+                  <span class="field-error">⚠ Required field</span>
+                </div>
+                <div class="form-group" id="billLastNameGroup">
+                  <label for="billLastName">Last name <span class="required">*</span></label>
+                  <input type="text" id="billLastName" class="form-control">
+                  <span class="field-error">⚠ Required field</span>
+                </div>
+              </div>
+              <div class="form-group" id="billAddressGroup">
+                <label for="billAddress">Street address <span class="required">*</span></label>
+                <input type="text" id="billAddress" class="form-control">
+                <span class="field-error">⚠ Required field</span>
+              </div>
+              <div class="form-grid-2">
+                <div class="form-group" id="billCityGroup">
+                  <label for="billCity">City <span class="required">*</span></label>
+                  <input type="text" id="billCity" class="form-control">
+                  <span class="field-error">⚠ Required field</span>
+                </div>
+                <div class="form-group" id="billZipGroup">
+                  <label for="billZip">ZIP / Postal code <span class="required">*</span></label>
+                  <input type="text" id="billZip" class="form-control">
+                  <span class="field-error">⚠ Enter a valid ZIP code</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ===================== PAYMENT METHOD ===================== -->
+          <section class="panel checkout-section">
+            <h2 class="panel-title">💳 Payment Method</h2>
+            <div class="payment-methods">
+              <label class="payment-option selected" data-payment-option="card">
+                <input type="radio" name="paymentMethod" value="card" checked>
+                <div><div class="po-label">Credit / Debit Card</div><div class="po-sub">Visa, Mastercard, RuPay accepted</div></div>
+              </label>
+              <div class="payment-details show" id="cardDetails">
+                <div class="form-group" id="cardNumberGroup">
+                  <label for="cardNumber">Card number <span class="required">*</span></label>
+                  <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19">
+                  <span class="field-error">⚠ Enter a valid card number</span>
+                </div>
+                <div class="form-grid-2">
+                  <div class="form-group" id="cardExpiryGroup">
+                    <label for="cardExpiry">Expiry (MM/YY) <span class="required">*</span></label>
+                    <input type="text" id="cardExpiry" class="form-control" placeholder="MM/YY" maxlength="5">
+                    <span class="field-error">⚠ Enter a valid, unexpired date</span>
+                  </div>
+                  <div class="form-group" id="cardCvvGroup">
+                    <label for="cardCvv">CVV <span class="required">*</span></label>
+                    <input type="text" id="cardCvv" class="form-control" placeholder="123" maxlength="4">
+                    <span class="field-error">⚠ Enter a valid CVV</span>
+                  </div>
+                </div>
+              </div>
+
+              <label class="payment-option" data-payment-option="upi">
+                <input type="radio" name="paymentMethod" value="upi">
+                <div><div class="po-label">UPI</div><div class="po-sub">Pay via Google Pay, PhonePe, Paytm</div></div>
+              </label>
+              <div class="payment-details" id="upiDetails">
+                <div class="form-group" id="upiIdGroup">
+                  <label for="upiId">UPI ID <span class="required">*</span></label>
+                  <input type="text" id="upiId" class="form-control" placeholder="yourname@upi">
+                  <span class="field-error">⚠ Enter a valid UPI ID</span>
+                </div>
+              </div>
+
+              <label class="payment-option" data-payment-option="cod">
+                <input type="radio" name="paymentMethod" value="cod">
+                <div><div class="po-label">Cash on Delivery</div><div class="po-sub">Pay when your order arrives</div></div>
+              </label>
+            </div>
+          </section>
+        </div>
+
+        <!-- ===================== ORDER SUMMARY ===================== -->
+        <aside class="checkout-summary">
+          <h2 class="panel-title" style="margin-bottom:var(--space-3);">Order Summary</h2>
+          <div id="checkoutItemsList"></div>
+          <div class="summary-row" style="margin-top:var(--space-3);"><span>Subtotal</span><span id="coSubtotal">$0.00</span></div>
+          <div class="summary-row discount" id="coDiscountRow" style="display:none;"><span>Discount</span><span id="coDiscount">-$0.00</span></div>
+          <div class="summary-row"><span>Shipping</span><span id="coShipping">$0.00</span></div>
+          <div class="summary-row"><span>Estimated Tax</span><span id="coTax">$0.00</span></div>
+          <div class="summary-row total"><span>Total</span><span id="coTotal">$0.00</span></div>
+          <button type="submit" class="btn btn-primary btn-block checkout-btn" id="placeOrderBtn">Place Order</button>
+          <div class="secure-note">🔒 Your payment info is encrypted</div>
+        </aside>
+      </div>
+    </form>
+  </div>
+</main>
+
+<script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>

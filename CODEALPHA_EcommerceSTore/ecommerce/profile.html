@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account — ShopHive</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/responsive.css">
+<style>
+  .profile-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+  }
+  @media (max-width: 860px) {
+    .profile-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Sidebar Profile Card */
+  .profile-sidebar {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg, 12px);
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+  .avatar-card {
+    text-align: center;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 1.25rem;
+  }
+  .avatar-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--color-primary), #4F46E5);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.75rem;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+  }
+  .avatar-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+    color: var(--color-text);
+  }
+  .avatar-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+  .role-badge {
+    display: inline-block;
+    background: var(--color-primary-softer);
+    color: var(--color-primary);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .nav-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-md, 8px);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+  .tab-btn:hover {
+    background: var(--color-bg-alt);
+    color: var(--color-text);
+  }
+  .tab-btn.active {
+    background: var(--color-primary-softer);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .tab-btn.logout-btn {
+    color: var(--color-danger);
+    margin-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    border-radius: 0;
+    padding-top: 1rem;
+  }
+  .tab-btn.logout-btn:hover {
+    background: #FEF2F2;
+  }
+
+  /* Content Panel */
+  .profile-content {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg, 12px);
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+  .tab-pane {
+    display: none;
+  }
+  .tab-pane.active {
+    display: block;
+  }
+  .pane-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .pane-header h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.25rem;
+  }
+  .pane-header p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  /* Form Fields Grid */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  @media (max-width: 600px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  /* Order Cards */
+  .order-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md, 8px);
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    background: var(--color-bg-alt);
+  }
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dashed var(--color-border);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .order-id {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .order-date {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+  .status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  .status-Pending { background: #FEF3C7; color: #D97706; }
+  .status-Processing { background: #E0F2FE; color: #0284C7; }
+  .status-Shipped { background: #E0E7FF; color: #4338CA; }
+  .status-Delivered { background: #DCFCE7; color: #15803D; }
+  .status-Cancelled { background: #FEE2E2; color: #B91C1C; }
+
+  .order-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .order-item-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .item-thumb {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #e2e8f0;
+  }
+  .item-details {
+    flex: 1;
+  }
+  .item-details h4 {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+  .item-details p {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+  .order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+    font-weight: 600;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--color-text-muted);
+  }
+  .empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div class="page-loader" aria-hidden="true"><div class="spinner"></div></div>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-left"><span>Free shipping on orders over $50</span></div>
+      <div class="topbar-right"><a href="products.html">Browse Products</a><a href="#">Help Center</a></div>
+    </div>
+  </div>
+  <div class="header-main">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-mark">⚡</span>
+        <span class="logo-text">Shop<strong>Hive</strong></span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop All</a>
+        <a href="products.html?filter=bestsellers">Best Sellers</a>
+        <a href="products.html?category=Electronics">Electronics</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart">
+          🛒
+          <span class="badge" data-cart-count>0</span>
+        </a>
+        <a href="profile.html" class="icon-btn account-link active" title="Account">👤</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== MAIN CONTENT ===================== -->
+<main id="main" class="container">
+  <div class="profile-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="profile-sidebar">
+      <div class="avatar-card">
+        <div class="avatar-circle" id="userAvatar">U</div>
+        <h3 id="sidebarUserName">User Profile</h3>
+        <p id="sidebarUserEmail">user@example.com</p>
+        <span class="role-badge" id="sidebarUserRole">Member</span>
+      </div>
+
+      <nav class="nav-tabs">
+        <button class="tab-btn active" data-tab="profilePane">
+          <span>👤</span> Personal Information
+        </button>
+        <button class="tab-btn" data-tab="ordersPane">
+          <span>📦</span> My Orders
+        </button>
+        <button class="tab-btn" data-tab="securityPane">
+          <span>🔒</span> Password & Security
+        </button>
+        <button class="tab-btn logout-btn" id="logoutBtn">
+          <span>🚪</span> Sign Out
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Content Panes -->
+    <section class="profile-content">
+      
+      <!-- Tab 1: Personal Information -->
+      <div class="tab-pane active" id="profilePane">
+        <div class="pane-header">
+          <h2>Personal Information</h2>
+          <p>Manage your account details and default shipping address.</p>
+        </div>
+
+        <form id="profileForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="profName" class="form-label">Full Name</label>
+              <input type="text" id="profName" class="form-control" required placeholder="John Doe">
+            </div>
+
+            <div class="form-group">
+              <label for="profEmail" class="form-label">Email Address (Read-only)</label>
+              <input type="email" id="profEmail" class="form-control" readonly disabled placeholder="john@example.com">
+            </div>
+
+            <div class="form-group">
+              <label for="profPhone" class="form-label">Phone Number</label>
+              <input type="tel" id="profPhone" class="form-control" placeholder="+1 (555) 000-0000">
+            </div>
+
+            <div class="form-group full-width">
+              <h3 style="font-size: 1.1rem; margin-top: 1rem; margin-bottom: 0.5rem;">Default Shipping Address</h3>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="profStreet" class="form-label">Street Address</label>
+              <input type="text" id="profStreet" class="form-control" placeholder="123 Main Street, Apt 4B">
+            </div>
+
+            <div class="form-group">
+              <label for="profCity" class="form-label">City</label>
+              <input type="text" id="profCity" class="form-control" placeholder="New York">
+            </div>
+
+            <div class="form-group">
+              <label for="profState" class="form-label">State / Province</label>
+              <input type="text" id="profState" class="form-control" placeholder="NY">
+            </div>
+
+            <div class="form-group">
+              <label for="profZip" class="form-label">Postal / Zip Code</label>
+              <input type="text" id="profZip" class="form-control" placeholder="10001">
+            </div>
+
+            <div class="form-group">
+              <label for="profCountry" class="form-label">Country</label>
+              <input type="text" id="profCountry" class="form-control" placeholder="USA">
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; text-align: right;">
+            <button type="submit" class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Tab 2: My Orders -->
+      <div class="tab-pane" id="ordersPane">
+        <div class="pane-header">
+          <h2>My Order History</h2>
+          <p>Track recent orders, check delivery status, and view purchases.</p>
+        </div>
+
+        <div id="ordersContainer">
+          <div class="empty-state">
+            <div class="empty-state-icon">⏳</div>
+            <p>Loading your orders...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Password & Security -->
+      <div class="tab-pane" id="securityPane">
+        <div class="pane-header">
+          <h2>Password & Security</h2>
+          <p>Update your password to keep your account secure.</p>
+        </div>
+
+        <form id="passwordForm" style="max-width: 450px;">
+          <div class="form-group">
+            <label for="newPassword" class="form-label">New Password</label>
+            <input type="password" id="newPassword" class="form-control" minlength="6" required placeholder="Minimum 6 characters">
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword" class="form-label">Confirm New Password</label>
+            <input type="password" id="confirmPassword" class="form-control" minlength="6" required placeholder="Re-enter new password">
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <button type="submit" class="btn btn-primary" id="updatePasswordBtn">Update Password</button>
+          </div>
+        </form>
+      </div>
+
+    </section>
+  </div>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col brand-col">
+      <div class="brand-logo footer-logo"><span class="logo-mark">⚡</span><span class="logo-text">Shop<strong>Hive</strong></span></div>
+      <p>Premium online store providing quality electronics, apparel, and lifestyle goods.</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span data-year>2026</span> ShopHive. All rights reserved.</span>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>
