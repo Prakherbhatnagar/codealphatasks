@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-app: #F8FAFC;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #F1F5F9;
+    --border-card: #E2E8F0;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --bg-input: #F1F5F9;
+    --border-input: #CBD5E1;
+  }
+
+  .dark {
+    --bg-app: #090D16;
+    --bg-card: #0F172A;
+    --bg-card-hover: #1E293B;
+    --border-card: #1E293B;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --bg-input: #1E293B;
+    --border-input: #334155;
+  }
+
+  body {
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+  }
+}
+
+/* Light mode overrides for structural elements */
+.light body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+.light header,
+.light aside,
+.light main {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+.light main {
+  background-color: #F8FAFC !important;
+}
+
+.light .bg-slate-950,
+.light .bg-slate-900 {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+.light .bg-slate-900\/60,
+.light .bg-slate-900\/80,
+.light .bg-slate-900\/90,
+.light .bg-slate-800,
+.light .bg-slate-800\/60,
+.light .bg-slate-800\/80,
+.light .bg-slate-800\/90,
+.light .bg-slate-800\/50,
+.light .bg-slate-800\/40 {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #1E293B !important;
+}
+
+.light .text-slate-100,
+.light .text-slate-200,
+.light .text-white {
+  color: #0F172A !important;
+}
+
+.light .text-slate-300,
+.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+.light .border-slate-800,
+.light .border-slate-800\/80,
+.light .border-slate-700,
+.light .border-slate-700\/60,
+.light .border-slate-700\/80,
+.light .border-slate-700\/50 {
+  border-color: #E2E8F0 !important;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 9999px;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+
+/* Glassmorphism */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.light .glass-panel {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+}
+
+/* Micro animations */
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "codealpha-project-management-tool",
+  "version": "1.0.0",
+  "description": "Collaborative Project Management Tool (Trello/Asana Clone) built with React + Tailwind CSS and Node.js + Express.js + Socket.IO + MongoDB",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "npm run start --prefix server",
+    "client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client"
+  }
+}
