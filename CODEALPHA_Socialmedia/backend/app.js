@@ -30,7 +30,11 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(loggerMiddleware);
 
 const uploadsPath = path.resolve('uploads');
-app.use('/uploads', express.static(uploadsPath));
+app.use('/uploads', (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin',  '*');
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+}, express.static(uploadsPath));
 
 app.get('/api/health', (req, res) => {
   res.status(200).json({
